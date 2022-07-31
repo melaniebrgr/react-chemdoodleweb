@@ -1,0 +1,27 @@
+{
+  "name": "react-chemdoodle-web-components",
+  "version": "1.0.0",
+  "description": "A React UI library add-on for ChemDoodle Web components, scientific interface display.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melaniebrgr/react-chemdoodle-web-components.git"
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "chemistry",
+    "chemical",
+    "graphics",
+    "cheminformatics",
+    "chemdoodle"
+  ],
+  "author": "Melanie Burger",
+  "bugs": {
+    "url": "https://github.com/melaniebrgr/react-chemdoodle-web-components/issues"
+  },
+  "homepage": "https://github.com/melaniebrgr/react-chemdoodle-web-components#readme"
+}

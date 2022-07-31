@@ -24,8 +24,11 @@
     "url": "https://github.com/melaniebrgr/react-chemdoodle-web-components/issues"
   },
   "homepage": "https://github.com/melaniebrgr/react-chemdoodle-web-components#readme",
-  "engines" : { 
-    "npm" : "=8.11.0",
-    "node" : "=16.16.0"
+  "engines": {
+    "npm": "=8.11.0",
+    "node": "=16.16.0"
+  },
+  "devDependencies": {
+    "typescript": "4.7.4"
   }
 }

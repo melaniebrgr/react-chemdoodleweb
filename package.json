@@ -2,9 +2,10 @@
   "name": "react-chemdoodle-web-components",
   "version": "1.0.0",
   "description": "A React UI library add-on for ChemDoodle Web components, scientific interface display.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,10 @@
   "engines": {
     "npm": "=8.11.0",
     "node": "=16.16.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "chemdoodleweb-9.4.0": "file:ChemDoodleWeb-9.4.0"
   },
   "devDependencies": {
     "typescript": "4.7.4"

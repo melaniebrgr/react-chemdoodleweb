@@ -1,3 +1,3 @@
-import 'chemdoodleweb-9.4.0';
+import 'chemdoodleweb';
 
 

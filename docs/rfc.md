@@ -1,6 +1,6 @@
 
-# [RFC] Enable Widgets in Product
-<!-- Summary: Allow community to build widgets to expand the use cases of product.  -->
+# [RFC] React ChemDoodle Web Component Architecture
+Summary: Allow developers to quickly and conveniently build cheminformatic and scientific interfaces in React applications based on the ChemDoodle Web JS library.
 
 - **Created:** Aug 7, 2022
 <!-- - Current Version: 1.0.4
@@ -9,9 +9,9 @@
 - **Status**: WIP <!-- | In-Review | Approved | Obsolete -->
 
 Owner: melaniebrgr@gmail.com,
-<!-- Contributors: email@hashicorp.com,
-Other stakeholders: email@hashicorp.com,
-Approvers: person@hashicorp.com -->
+<!-- Contributors: email@hashicorp.com, -->
+Other stakeholders: kevin@ichemlabs.com,
+<!-- Approvers: person@hashicorp.com -->
 
 ---
 
@@ -46,9 +46,26 @@ This knowledge can result in recommendations for alternate approaches that perha
 
 For the RFC author, typing out the implementation in a high-level often serves as "rubber duck debugging" and you can catch a lot of issues or unknown unknowns prior to writing any real code. -->
 
-<!-- ### [Example] UX
+### [Example] UX
 
-If there are user-impacting changes by this RFC, it is important to have a "UI/UX" section. User-impacting changes include external API changes, configuration format changes, CLI output changes, etc. 
+```jsx
+
+import { useSketcher } from '@react-chemdoodleweb/sketcher'
+
+const Sketcher = () => {
+    const { canvas, buttons } = useSketcher(options)
+
+    return (
+        <div>
+            { buttons.map(button => <button {...button} />) }
+            <canvas />
+        <div>
+    )
+}
+
+```
+
+<!-- If there are user-impacting changes by this RFC, it is important to have a "UI/UX" section. User-impacting changes include external API changes, configuration format changes, CLI output changes, etc. 
 
 This section is effectively the "implementation" section for the user experience. The goal is to explain the changes necessary, any impacts to backwards compatibility, any impacts to normal workflow, etc.
 

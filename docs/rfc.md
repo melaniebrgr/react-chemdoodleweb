@@ -1,5 +1,5 @@
 
-# [RFC] React ChemDoodle Web Component Architecture
+# [RFC] React ChemDoodle Web Component Design
 Summary: Allow developers to quickly and conveniently build cheminformatic and scientific interfaces in React applications based on the ChemDoodle Web JS library.
 
 - **Created:** Aug 7, 2022
@@ -15,20 +15,126 @@ Other stakeholders: kevin@ichemlabs.com,
 
 ---
 
+Expose an API for building CWCs in React applications.
+
 <!-- The RFC begins with a brief overview. This section should be one or two paragraphs that just explains what the goal of this RFC is going to be, but without diving too deeply into the "why", "why now", "how", etc. Ensure anyone opening the document will form a clear understanding of the RFCs intent from reading this paragraph(s). -->
 
-# Background
+## Background
+
 
 <!-- The next section is the "Background" section. This section should be at least two paragraphs and can take up to a whole page in some cases. The guiding goal of the background section is: as a newcomer to this project (new employee, team transfer), can I read the background section and follow any links to get the full context of why this change is necessary? 
 
 If you can't show a random engineer the background section and have them acquire nearly full context on the necessity for the RFC, then the background section is not full enough. To help achieve this, link to prior RFCs, discussions, and more here as necessary to provide context so you don't have to simply repeat yourself. -->
 
-# Proposal
+## Proposal
 
-<!-- The next required section is "Proposal" or "Goal". Given the background above, this section proposes a solution. This should be an overview of the "how" for the solution, but for details further sections will be used.
-Abandoned Ideas (Optional)
+A headless UI in order to provide a high degree of customisation. Supports the controls the following controls:
 
-As RFCs evolve, it is common that there are ideas that are abandoned. Rather than simply deleting them from the document, you should try to organize them into sections that make it clear they're abandoned while explaining why they were abandoned.
+### Controls
+
+#### Basic controls:
+- open
+- save
+- clear
+- center
+- flip horizontally
+- flip vertically
+- move
+- clean
+- undo
+- redo
+- cut
+- copy
+- paste
+- increase scale
+- decrease scale
+- lasso tool
+- lasso tool (shapes only)
+- marquee tool
+- erase tool
+- templates
+- search (molgrabber)
+- calculate
+
+#### Element controls:
+- hydrogen
+- carbon
+- nitrogen
+- oxygen
+- fluorine
+- chlorine
+- bromine
+- iodine
+- phosphorus
+- sulfur
+- silicone
+- periodic table
+- atom label tool
+- set query to atom or bond
+
+#### Attribute controls:
+- increase charge
+- decrease charge
+- add lone pair
+- remove lone pair
+- add radical
+- remove radical
+- set isotope value
+- set implicit hydrogen count
+- define enhanced stereochemistry
+
+#### Bond controls:
+- single bond
+- recessed bond
+- protruding bond
+- double bond
+- zero bond
+- covalent bond
+- half bond
+- wavy bond
+- resonance bond
+- ambiguous double bond
+- triple bond
+- add carbon chain
+
+#### Ring controls:
+- cyclohexane ring
+- benzene ring
+- cyclopropane ring
+- cyclobutane ring
+- pentane ring
+- cycloheptane ring
+- cyclohexane ring
+- arbitrary ring size tool
+
+#### Shape controls:
+- synthetic arrow
+- retrosynthetic arrow
+- resonance arrow
+- equilibrium arrow
+- single electron pusher
+- electron pair pusher
+- bond forming pusher
+- reaction mapping
+- bracket
+- repeat unit
+- variable attachment points
+
+<!-- The next required section is "Proposal" or "Goal". Given the background above, this section proposes a solution. This should be an overview of the "how" for the solution, but for details further sections will be used. -->
+
+## Abandoned Ideas
+
+### Convenience control utlity methods on canvas component
+Canvas component also exposes utility methods. As a developer destructing a controls prop from the hook is a more prectible usage than calling utility method on a component. Users can filter over the controls as they like to group the controls, and examples can be provided in the documentation. Future versions could expose convenience methods that group by control type if it's found to be useful.
+
+
+```javascript
+canvas.getControls(); // Returns an array of all controls.
+canvas.getControls('open', 'save'); // Returns specified control(s).
+
+```
+
+<!-- As RFCs evolve, it is common that there are ideas that are abandoned. Rather than simply deleting them from the document, you should try to organize them into sections that make it clear they're abandoned while explaining why they were abandoned.
 
 When sharing your RFC with others or having someone look back on your RFC in the future, it is common to walk the same path and fall into the same pitfalls that we've since matured from. Abandoned ideas are a way to recognize that path and explain the pitfalls and why they were abandoned. -->
 
@@ -50,14 +156,14 @@ For the RFC author, typing out the implementation in a high-level often serves a
 
 ```jsx
 
-import { useSketcher } from '@react-chemdoodleweb/sketcher'
+import { useChemDoodle } from '@react-chemdoodleweb/sketcher'
 
 const Sketcher = () => {
-    const { canvas, buttons } = useSketcher(options)
+    const { canvas, controls } = useChemDoodle(options)
 
     return (
         <div>
-            { buttons.map(button => <button {...button} />) }
+            { controls.map(control => <button {...control} />) }
             <canvas />
         <div>
     )
@@ -78,7 +184,9 @@ Will this RFC have implications for the web UI? If so, be sure to collaborate wi
 <!-- ## Style Notes
 
 All RFCs should follow similar styling and structure to ease reading. "Beautiful is better" is a core principle of HashiCorp and we care about the details. 
-Heading Styles
+
+### Heading Styles
+
 "Heading 2" should be used for section titles. We do not use "Heading 1" because aesthetically the text is too large. Google Docs will use Heading 2 as the outermost headers in the generated outline. 
 
 "Heading 3" should be used for sub-sections. 

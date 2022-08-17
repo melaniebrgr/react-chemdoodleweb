@@ -1,11 +1,11 @@
 
-# [RFC] ChemDoodle React Components
+# [RFC] ChemDoodle React Components API design
 Summary: Enable developers to build cheminformatic and scientific UIs in React applications with the ChemDoodle Web Components (CWC) JS library.
 
 - **Created:** Aug 7, 2022
 - **Current Version:** 0.0.0
 - **Target Version:** 1.0.0
-- **Status:** WIP
+- **Status:** Approved
 - **ID:** rcwc
 
 Owner: melaniebrgr@gmail.com,
@@ -103,10 +103,9 @@ const Sketcher = () => {
     )
 }
 ```
-The inversion of control for customising styling and appearance provided by a render prop in the Compositional example (1.1) is solved with a hook.
+The inversion of control for customising styling and appearance provided by a render prop in the Compositional example (1.1) is solved with a hook here instead.
 
-In both examples, users can map or filter over the controls to customise the appearance, group, or limit which ones are presented.
-
+In both examples, users can map or filter over the controls to customise the appearance, group, or limit which ones are presented. However the Headless example (1.2) is the more flexible and simplest possible API that accomplishes everything known and most likely to accomplish everything unknown in a declarative fashion.
 
 #### Abandoned Ideas
 
@@ -127,14 +126,6 @@ const Sketcher = () => {
     )
 }
 ```
-
-### 2. TypeScript support
-
-WIP
-
-### 3. Isomorphic import
-
-WIP
 
 ## Appendix
 

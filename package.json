@@ -21,6 +21,7 @@
     "chemdoodle"
   ],
   "author": "Melanie Burger",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/melaniebrgr/react-chemdoodleweb/issues"
   },

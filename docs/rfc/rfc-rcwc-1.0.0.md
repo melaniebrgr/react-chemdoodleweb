@@ -99,7 +99,7 @@ const Sketcher = () => {
         <div>
             { controls.map(control => <button {...control} />) }
             <canvas molecule={molecule} />
-        <div>
+        </div>
     )
 }
 ```
@@ -122,7 +122,7 @@ const Sketcher = () => {
         <div>
             { canvas.getControls(controls).map(control => <button {...control} />) }
             <canvas molecule={molecule} />
-        <div>
+        </div>
     )
 }
 ```

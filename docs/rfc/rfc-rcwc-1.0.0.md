@@ -6,7 +6,7 @@ Summary: Enable developers to build cheminformatic and scientific UIs in React a
 - **Current Version:** 0.0.0
 - **Target Version:** 1.0.0
 - **Status:** Approved
-- **ID:** rcwc
+- **ID:** rcwc-1.0.0
 
 Owner: melaniebrgr@gmail.com,
 Other stakeholders: kevin@ichemlabs.com

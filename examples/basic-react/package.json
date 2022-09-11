@@ -1,0 +1,14 @@
+{
+  "name": "basic-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Melanie Burger",
+  "license": "MIT",
+  "peerDependencies": {
+    "chemdoodleweb": "file:ChemDoodleWeb-9.4.0"
+  }
+}

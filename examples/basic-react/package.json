@@ -11,7 +11,7 @@
     "react-scripts": "5.0.1"
   },
   "peerDependencies": {
-    "chemdoodleweb": "file:ChemDoodleWeb-9.4.0"
+    "chemdoodleweb": "file:public/ChemDoodleWeb-9.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

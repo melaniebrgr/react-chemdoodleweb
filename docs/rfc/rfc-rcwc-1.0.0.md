@@ -96,11 +96,11 @@ const Sketcher = () => {
     const { canvas, controls } = useChemDoodle(options)
 
     return (
-        <div>
-            { controls.map(control => <button {...control} />) }
-            <canvas molecule={molecule} />
-        </div>
-    )
+    <div>
+        { controls.map(({ props }) => <button {...props} />) }
+        <canvas molecule={molecule} {...canvas.props} />
+    </div>
+    );
 }
 ```
 The inversion of control for customising styling and appearance provided by a render prop in the Compositional example (1.1) is solved with a hook here instead.

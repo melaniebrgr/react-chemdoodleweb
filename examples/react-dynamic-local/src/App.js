@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
 
 function App() {
-  useEffect(() => {
+  useEffect(() => { 
+    const id = 'CHEMDOODLE';
+    const src = `${process.env.PUBLIC_URL}/ChemDoodleWeb-9.4.0/install/ChemDoodleWeb.js`;
     const script = document.createElement('script');
-    script.src = `${process.env.PUBLIC_URL}/ChemDoodleWeb-9.4.0/install/ChemDoodleWeb.js`;
-    document.body.appendChild(script);
-  
-    return () => {
-        document.body.removeChild(script);
+    script.setAttribute('id', id)
+    script.src = src;
+    const isScriptLoaded = !!document.getElementById(id);
+
+    if (!isScriptLoaded) {
+      document.head.appendChild(script);
     }
   }, []);
 

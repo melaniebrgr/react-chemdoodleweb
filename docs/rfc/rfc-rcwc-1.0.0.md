@@ -113,6 +113,8 @@ In both examples, users can map or filter over the controls to customise the app
 The canvas component returned from a hook can also expose utility methods. This creates interesting possibilities, however, calling a utility methods on a component refence is a somewhat less familiar usage pattern than destructing controls, for instance, from a hook.
 
 ```jsx
+// Sketcher.jsx
+
 import { useChemDoodle } from '@react-chemdoodleweb'
 
 const Sketcher = () => {
@@ -125,6 +127,42 @@ const Sketcher = () => {
         </div>
     )
 }
+```
+
+```jsx
+// useChemDoodle.js (example stub)
+
+import { useEffect, useId, useRef } from "react"
+
+const useChemDoodle = () => {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (ref?.current) {
+      const ctx = ref.current.getContext('2d')
+      ctx.fillStyle = 'blue'
+      ctx.fillRect(10, 10, 150, 100)
+    }
+  }, [ref])
+
+  return {
+    controls: [{
+      props: {
+        id: 'open',
+        key: useId(),
+        children: 'Open',
+      }
+    }],
+    canvas: {
+      props: {
+        id: useId(),
+        ref,
+      }
+    },
+  }
+}
+
+export default useChemDoodle;
 ```
 
 ## Appendix

@@ -1,4 +1,4 @@
-import { ViewerExample } from "react-chemdoodleweb";
+import ViewerExample from './ViewerExample'
 
 function App() {
   return (

@@ -1,3 +1,9 @@
 {
-  "conventionalCommits.scopes": ["config", "doc", "example", "core"]
+  "conventionalCommits.scopes": [
+    "config",
+    "doc",
+    "example",
+    "core",
+    "viewer"
+  ]
 }

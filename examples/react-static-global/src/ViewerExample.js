@@ -21,7 +21,7 @@ function ViewerExample() {
     .then(data => data.text())
     .then(setMol)
 
-  return (<ViewerCanvas data={{ mol }} canvasStyle={canvasStyle} moleculeStyle={moleculeStyle} />)
+  return (<ViewerCanvas id="viewer-canvas" data={{ mol }} canvasStyle={canvasStyle} moleculeStyle={moleculeStyle} />)
 }
 
 export default ViewerExample;

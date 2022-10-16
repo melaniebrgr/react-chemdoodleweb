@@ -1,18 +1,8 @@
 import { useState } from "react";
 import { ViewerCanvas } from "react-chemdoodleweb";
-import moleculeUrl from "./molecules/benzoic-acid.mol";
+import molUrl from "./molecules/benzoic-acid.mol";
 
-const useMolecule = (moleculeUrl) => {
-  const [molecule, setMolecule] = useState()
-
-  fetch(moleculeUrl)
-    .then(data => data.text())
-    .then(setMolecule)
-
-  return molecule
-}
-
-const styles = {
+const canvasStyles = {
   bonds_width_2D: .6,
   bonds_saturationWidthAbs_2D: 2.6,
   bonds_hashSpacing_2D: 2.5,
@@ -21,10 +11,18 @@ const styles = {
   atoms_displayTerminalCarbonLabels_2D: true,
 }
 
-function ViewerExample() {
-  const mol = useMolecule(moleculeUrl)
+const moleculeStyles = {
+  scaleToAverageBondLength: 14.4
+}
 
-  return (<ViewerCanvas styles={styles} mol={mol} />)
+function ViewerExample() {
+  const [mol, setMol] = useState()
+
+  fetch(molUrl)
+    .then(data => data.text())
+    .then(setMol)
+
+  return (<ViewerCanvas data={{ mol }} canvasStyles={canvasStyles} moleculeStyles={moleculeStyles} />)
 }
 
 export default ViewerExample;

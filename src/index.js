@@ -1,21 +1,25 @@
 import { useEffect } from "react"
 
-export function ViewerCanvas({ styles, mol }) {
+export function ViewerCanvas({ data, canvasStyles, moleculeStyles }) {
   useEffect(() => {
-    
-    const viewerCanvas = new ChemDoodle.ViewerCanvas('viewerCanvas', 100, 100);
+    // Setup canvas
+    const viewerCanvas = new ChemDoodle.ViewerCanvas('viewerCanvas');
     
     viewerCanvas.styles = {
       ...viewerCanvas.styles,
-      ...styles
+      ...canvasStyles
     };
 
-    const molecule = ChemDoodle.readMOL(mol);
+    // Setup molecule
+    const molecule = ChemDoodle.readMOL(data.mol);
 
-    molecule.scaleToAverageBondLength(14.4);
+    for (const key in moleculeStyles) {
+      molecule[key](moleculeStyles[key])
+    }
     
+    // Load molecule in canvas
     viewerCanvas.loadMolecule(molecule);
-  }, [styles, mol]);
+  }, [data, canvasStyles, moleculeStyles]);
 
-  return (<canvas id="viewerCanvas" />)
+  return (<canvas id="viewerCanvas" width={100} height={100} />)
 }

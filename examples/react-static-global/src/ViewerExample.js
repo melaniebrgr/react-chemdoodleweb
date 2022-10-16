@@ -2,6 +2,16 @@ import { useState } from "react";
 import { ViewerCanvas } from "react-chemdoodleweb";
 import moleculeUrl from "./molecules/benzoic-acid.mol";
 
+const useMolecule = (moleculeUrl) => {
+  const [molecule, setMolecule] = useState()
+
+  fetch(moleculeUrl)
+    .then(data => data.text())
+    .then(setMolecule)
+
+  return molecule
+}
+
 const styles = {
   bonds_width_2D: .6,
   bonds_saturationWidthAbs_2D: 2.6,
@@ -12,13 +22,9 @@ const styles = {
 }
 
 function ViewerExample() {
-  const [molecule, setMolecule] = useState();
+  const mol = useMolecule(moleculeUrl)
 
-  fetch(moleculeUrl)
-    .then(data => data.text())
-    .then(setMolecule)
-
-  return (<ViewerCanvas styles={styles} mol={molecule} />)
+  return (<ViewerCanvas styles={styles} mol={mol} />)
 }
 
 export default ViewerExample;

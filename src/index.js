@@ -22,11 +22,9 @@ export function ViewerCanvas({ id, data, style, width = 100, height = 100, canva
   return (<canvas id={id} style={style} width={width} height={height} />)
 }
 
-export function SketcherCanvas({ id, width = 100, height = 100 }) {
+export function SketcherCanvas({ id, width = 100, height = 100, canvasOptions }) {
   useEffect(() => {
-    new ChemDoodle.SketcherCanvas(id, undefined, undefined, { 
-      includeToolbar: false
-    });
+    new ChemDoodle.SketcherCanvas(id, undefined, undefined, canvasOptions);
   })
 
   return (<canvas id={id} width={width} height={height} />)

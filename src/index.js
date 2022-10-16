@@ -21,3 +21,13 @@ export function ViewerCanvas({ id, data, style, width = 100, height = 100, canva
 
   return (<canvas id={id} style={style} width={width} height={height} />)
 }
+
+export function SketcherCanvas({ id, width = 100, height = 100 }) {
+  useEffect(() => {
+    new ChemDoodle.SketcherCanvas(id, undefined, undefined, { 
+      includeToolbar: false
+    });
+  })
+
+  return (<canvas id={id} width={width} height={height} />)
+}

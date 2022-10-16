@@ -1,11 +1,13 @@
-import ViewerExample from './ViewerExample'
+import ViewerCanvasExample from './ViewerCanvasExample'
+import SketcherCanvasExample from './SketcherCanvasExample'
 
 function App() {
   return (
     <div>
       <header>
-        <h1>React Example</h1>
-        <ViewerExample />
+        <h1>React ChemDoodle Examples</h1>
+        <ViewerCanvasExample />
+        <SketcherCanvasExample />
       </header>
     </div>
   );

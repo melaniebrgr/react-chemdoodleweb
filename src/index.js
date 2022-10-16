@@ -1,31 +1,23 @@
-import { useEffect, useId, useRef } from "react"
+import { useEffect } from "react"
 
-const useChemDoodle = () => {
-  const ref = useRef(null)
-
+export function ViewerCanvas({ id, data, style, width = 100, height = 100, canvasStyle, moleculeStyle }) {
   useEffect(() => {
-    if (ref?.current) {
-      const ctx = ref.current.getContext('2d')
-      ctx.fillStyle = 'blue'
-      ctx.fillRect(10, 10, 150, 100)
+    // Setup canvas
+    const viewerCanvas = new ChemDoodle.ViewerCanvas(id);
+    viewerCanvas.styles = {
+      ...viewerCanvas.styles,
+      ...canvasStyle
+    };
+
+    // Setup molecule
+    const molecule = ChemDoodle.readMOL(data.mol);
+    for (const key in moleculeStyle) {
+      molecule[key](moleculeStyle[key])
     }
-  }, [ref])
+    
+    // Load molecule in canvas
+    viewerCanvas.loadMolecule(molecule);
+  }, [data, canvasStyle, moleculeStyle]);
 
-  return {
-    controls: [{
-      props: {
-        id: 'open',
-        key: useId(),
-        children: 'Open',
-      }
-    }],
-    canvas: {
-      props: {
-        id: useId(),
-        ref,
-      }
-    },
-  }
+  return (<canvas id={id} style={style} width={width} height={height} />)
 }
-
-export default useChemDoodle;

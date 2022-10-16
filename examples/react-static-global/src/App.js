@@ -1,15 +1,11 @@
-import { useEffect } from "react";
+import ViewerExample from './ViewerExample'
 
 function App() {
-  useEffect(() => {
-    // eslint-disable-next-line no-undef
-    console.log(ChemDoodle.getVersion());
-  }, []);
-
   return (
     <div>
       <header>
         <h1>React Example</h1>
+        <ViewerExample />
       </header>
     </div>
   );

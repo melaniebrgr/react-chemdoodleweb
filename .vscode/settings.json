@@ -1,9 +1,8 @@
 {
   "conventionalCommits.scopes": [
-    "config",
     "doc",
-    "example",
     "core",
-    "viewer"
+    "viewer",
+    "sketcher"
   ]
 }

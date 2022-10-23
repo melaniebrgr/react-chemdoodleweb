@@ -6,9 +6,11 @@ function App() {
     <div>
       <header>
         <h1>React ChemDoodle Examples</h1>
+      </header>
+      <main>
         <ViewerCanvasExample />
         <SketcherCanvasExample />
-      </header>
+      </main>
     </div>
   );
 }

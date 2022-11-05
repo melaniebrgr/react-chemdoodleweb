@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useCallback, useEffect, useRef } from "react"
 
 export function ViewerCanvas({ id, data, style, width = 100, height = 100, canvasStyle, moleculeStyle }) {
   useEffect(() => {
@@ -23,9 +23,27 @@ export function ViewerCanvas({ id, data, style, width = 100, height = 100, canva
 }
 
 export function SketcherCanvas({ id, width = 100, height = 100, canvasOptions }) {
+  const instance = useRef(null)
+  
   useEffect(() => {
-    new ChemDoodle.SketcherCanvas(id, undefined, undefined, canvasOptions);
-  })
+    const sketcher = new ChemDoodle.SketcherCanvas(id, undefined, undefined, canvasOptions);
+    instance.current = sketcher;
+    console.log(instance.current);
 
-  return (<canvas id={id} width={width} height={height} />)
+    return () => {
+      const element = document.getElementById(`${id}_toolbar`);
+      element.remove();
+    }
+  }, []);
+
+  const onMove = useCallback(() => {
+    instance.current.stateManager.setState(instance.current.stateManager.STATE_MOVE);
+  });
+
+  return (
+    <>
+      <button onClick={onMove}>move</button>
+      <canvas id={id} width={width} height={height} />
+    </>
+  );
 }

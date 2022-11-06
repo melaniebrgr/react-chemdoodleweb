@@ -8,7 +8,9 @@ function App() {
         <h1>React ChemDoodle Examples</h1>
       </header>
       <main>
+        <h2>Viewer Canvas Example</h2>
         <ViewerCanvasExample />
+        <h2>Sketcher Canvas Example</h2>
         <SketcherCanvasExample />
       </main>
     </div>

@@ -5,3 +5,5 @@ The SketcherCanvas constructor is being called twice because, for whatever reaso
 - Overwrite the current ToolBar GUI with one in react (reproducing the toolbar UI and behaviour would take time)
 
 Updating the logic of useEffect to remove the toolbar from the DOM on unmount avoids toolbar duplication, but there was still a disconnect between the buttons and the interactions.
+
+Using the few basic toolbar buttons, the canvas occasionally flickers "revealing" another molecule beneath it.

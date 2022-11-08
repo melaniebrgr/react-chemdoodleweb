@@ -14779,7 +14779,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	return p;
 
 })(ChemDoodle.iChemLabs, ChemDoodle.lib.jQuery);
-
 (function(actions, undefined) {
 	'use strict';
 	actions._Action = function() {
@@ -14807,7 +14806,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	};
 
 })(ChemDoodle.uis.actions);
-
 (function(informatics, structures, actions, undefined) {
 	'use strict';
 	actions.AddAction = function(sketcher, a, as, bs) {
@@ -14889,7 +14887,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	};
 
 })(ChemDoodle.informatics, ChemDoodle.structures, ChemDoodle.uis.actions);
-
 (function(actions, undefined) {
 	'use strict';
 	actions.AddContentAction = function(sketcher, mols, shapes) {
@@ -14912,7 +14909,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	};
 
 })(ChemDoodle.uis.actions);
-
 (function(actions, undefined) {
 	'use strict';
 	actions.AddShapeAction = function(sketcher, s) {

@@ -1,2 +1,2 @@
-export { ViewerCanvas } from './ViewerCanvas';
-export { SketcherCanvas } from './SketcherCanvas';
+export { ViewerCanvas } from './ViewerCanvas/ViewerCanvas';
+export { SketcherCanvas } from './SketcherCanvas/SketcherCanvas';

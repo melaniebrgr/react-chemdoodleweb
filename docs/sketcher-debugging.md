@@ -1,12 +1,12 @@
-## Issue 1: duplicate toolbars
-The SketcherCanvas constructor is being called twice because, for whatever reason, it is being mounted, unmounted and remounted to the DOM during the lifecycle of the application. The problem with this is that Toolbar is not removed when this happens and each new rendered appends a new Toolbar.
+The error was coming from the SketcherCanvas constructor being called twice during the lifecycle of the application, which during the component was being mounted, unmounted and then remounted to the DOM. Each new render was appending a new Toolbar to the DOM and the old one was not removed. There were two things tried for resolving this
 
-- Remove the toolbar on component unmount,
-- Overwrite the current ToolBar GUI with one in react (reproducing the toolbar UI and behaviour would take time)
+1. removing the "old" toolbar on component unmount (fast to check if it works),
+2. overwriting the current ToolBar GUI with one in react (reproducing the toolbar UI and behaviour would take more time)
 
-Updating the logic of useEffect to remove the toolbar from the DOM on unmount avoids toolbar duplication, but there was still a disconnect between the buttons and the interactions. Overwrite the Toolbar manager and implementing the UI in React appears to be working from the most part. Sets up the possibility of exporting both the UI and the "plain" callbacks for those who want full UI control.
+Updating the logic of useEffect to remove the toolbar from the DOM on component unmount solved the toolbar duplication and error. However, there was a problem with this in that the connection between the buttons and the sketcher instance was lost and the UI rendering was still broken. I didn't try to debug this further, but I still could.
 
-Issues to resolve now:
+Exploring the second approach, overwriting the Toolbar manager and implementing the UI in React appears to be working. A benefit of this is approach, beyond reducing a dependency on jQuery, is that it also lends itself to the possibility of exporting both the UI and the "plain" callbacks from the package for those who want full UI control.
 
-- Using the few basic toolbar buttons, the canvas occasionally flickers "revealing" another molecule beneath it.
-- The custom atom picker displays a full periodic table :/
+A couple challenges so far with the react-based UI:
+- Using the new React-based toolbar buttons, the canvas occasionally flickers "revealing another molecule beneath it".
+- For completeness will need to reimplement the custom atom picker, which displays a full periodic table.

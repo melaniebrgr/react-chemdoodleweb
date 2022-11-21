@@ -22708,8 +22708,12 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 		// toolbar manager needs the sketcher id to make it unique to this
 		// canvas
 		this.id = id;
-		this.toolbarManager = new uis.gui.ToolbarManager(this);
-		if (this.includeToolbar) {
+		
+		this.toolbarManager = new uis.gui.ToolbarManager(this); // sketcher instance passed in here
+
+		const hasToolbar = !!document.getElementById(this.id + '_toolbar');
+		
+		if (this.includeToolbar && !hasToolbar) {
 			this.toolbarManager.write(); // creates HTML
 			// If pre-created, wait until the last button image loads before
 			// calling setup.
@@ -23104,6 +23108,7 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 	};
 	// desktop events
 	_.click = function(e) {
+		console.log(">>> click", this.stateManager.getCurrentState());
 		this.scaleEvent(e);
 		if(this.modal){
 			// for modal popovers, close requires a true value to state that is was cancelled

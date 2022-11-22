@@ -14779,7 +14779,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	return p;
 
 })(ChemDoodle.iChemLabs, ChemDoodle.lib.jQuery);
-
 (function(actions, undefined) {
 	'use strict';
 	actions._Action = function() {
@@ -14807,7 +14806,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	};
 
 })(ChemDoodle.uis.actions);
-
 (function(informatics, structures, actions, undefined) {
 	'use strict';
 	actions.AddAction = function(sketcher, a, as, bs) {
@@ -14889,7 +14887,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	};
 
 })(ChemDoodle.informatics, ChemDoodle.structures, ChemDoodle.uis.actions);
-
 (function(actions, undefined) {
 	'use strict';
 	actions.AddContentAction = function(sketcher, mols, shapes) {
@@ -14912,7 +14909,6 @@ ChemDoodle.uis = (function(iChemLabs, q, undefined) {
 	};
 
 })(ChemDoodle.uis.actions);
-
 (function(actions, undefined) {
 	'use strict';
 	actions.AddShapeAction = function(sketcher, s) {
@@ -19531,7 +19527,7 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 
 })(JSON, localStorage);
 
-(function(desktop, imageDepot, q, undefined) {
+(function(desktop, imageDepot, q, undefined) { // Button constructor
 	'use strict';
 	desktop.Button = function(id, icon, tooltip, func) {
 		this.id = id;
@@ -19597,9 +19593,9 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 	_.setup = function(lone) {
 		let element = this.getElement();
 		if (!this.toggle || lone) {
-			element.button();
+			element.button(); // styles the button
 		}
-		element.click(this.func);
+		element.click(this.func); // binds callback to the click method. func is whatever is passed into the constructor
 	};
 	_.disable = function() {
 		let element = this.getElement();
@@ -21463,6 +21459,8 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 	};
 
 })(ChemDoodle.uis.gui.desktop, ChemDoodle.uis.gui.imageDepot, ChemDoodle.lib.jQuery, document);
+
+// ToolbarManager: reponsible for the GUI toolbar representation
 (function(c, iChemLabs, io, structures, actions, gui, imageDepot, desktop, tools, states, q, document, undefined) {
 	'use strict';
 	gui.ToolbarManager = function(sketcher) {
@@ -21652,8 +21650,8 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 		}
 	};
 	let _ = gui.ToolbarManager.prototype;
-	_.write = function() {
-		let sb = ['<div style="font-size:10px;">'];
+	_.write = function() { // toolbarManager.write creates a string representing the Sketcher toolbar and inserts in the DOM
+		let sb = ['<div id="' + this.sketcher.id + '_toolbar" style="font-size:10px;">'];
 		let bg = this.sketcher.id + '_main_group';
 		if (this.sketcher.oneMolecule) {
 			sb.push(this.buttonMove.getSource(bg));
@@ -21718,7 +21716,7 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 			document.write(sb.join(''));
 		}
 	};
-	_.setup = function() {
+	_.setup = function() { // toolbarManager.setup 
 		if (this.sketcher.oneMolecule) {
 			this.buttonMove.setup(true);
 		} else {
@@ -22692,7 +22690,7 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 	};
 
 })(ChemDoodle.informatics, ChemDoodle.io, ChemDoodle.structures, ChemDoodle.uis, ChemDoodle.uis.actions);
-
+// SketcherCanvas, overwrite this method in global
 (function(c, extensions, featureDetection, uis, structures, d2, tools, q, m, window, undefined) {
 	'use strict';
 	c.SketcherCanvas = function(id, width, height, options) {
@@ -22710,15 +22708,19 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 		// toolbar manager needs the sketcher id to make it unique to this
 		// canvas
 		this.id = id;
-		this.toolbarManager = new uis.gui.ToolbarManager(this);
-		if (this.includeToolbar) {
-			this.toolbarManager.write();
+		
+		this.toolbarManager = new uis.gui.ToolbarManager(this); // sketcher instance passed in here
+
+		const hasToolbar = !!document.getElementById(this.id + '_toolbar');
+		
+		if (this.includeToolbar && !hasToolbar) {
+			this.toolbarManager.write(); // creates HTML
 			// If pre-created, wait until the last button image loads before
 			// calling setup.
 			let self = this;
 			if (document.getElementById(this.id)) {
-				q('#' + id + '_button_chain_icon').load(function() {
-					self.toolbarManager.setup();
+				q('#' + id + '_button_chain_icon').load(function() { // chain is the last one called
+					self.toolbarManager.setup(); // attaches event handlers to DOM nodes
 				});
 			} else {
 				q(window).load(function() {
@@ -23106,6 +23108,7 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 	};
 	// desktop events
 	_.click = function(e) {
+		console.log(">>> click", this.stateManager.getCurrentState());
 		this.scaleEvent(e);
 		if(this.modal){
 			// for modal popovers, close requires a true value to state that is was cancelled

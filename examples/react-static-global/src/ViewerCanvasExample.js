@@ -14,7 +14,7 @@ const moleculeStyle = {
   scaleToAverageBondLength: 14.4
 }
 
-function ViewerExample() {
+function ViewerCanvasExample() {
   const [mol, setMol] = useState()
 
   fetch(molUrl)
@@ -24,4 +24,4 @@ function ViewerExample() {
   return (<ViewerCanvas id="viewer-canvas" data={{ mol }} canvasStyle={canvasStyle} moleculeStyle={moleculeStyle} />)
 }
 
-export default ViewerExample;
+export default ViewerCanvasExample;

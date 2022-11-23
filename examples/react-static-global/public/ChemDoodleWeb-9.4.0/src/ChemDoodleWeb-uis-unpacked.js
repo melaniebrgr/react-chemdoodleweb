@@ -19546,7 +19546,7 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 		}
 		return undefined;
 	};
-	_.getSource = function(buttonGroup) {
+	_.getSource = function(buttonGroup) { // for toggle button (radio)
 		let sb = [];
 		let spacingStyles = 'box-sizing:border-box;margin-top:0px; margin-bottom:1px; padding:0px; height:28px; width:28px;';
 		if (this.toggle) {
@@ -22709,10 +22709,10 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 		// canvas
 		this.id = id;
 		
+		const hasToolbar = !!document.getElementById(this.id + '_toolbar');
+
 		this.toolbarManager = new uis.gui.ToolbarManager(this); // sketcher instance passed in here
 
-		const hasToolbar = !!document.getElementById(this.id + '_toolbar');
-		
 		if (this.includeToolbar && !hasToolbar) {
 			this.toolbarManager.write(); // creates HTML
 			// If pre-created, wait until the last button image loads before
@@ -22720,18 +22720,20 @@ ChemDoodle.uis.gui.templateDepot = (function(JSON, localStorage, undefined) {
 			let self = this;
 			if (document.getElementById(this.id)) {
 				q('#' + id + '_button_chain_icon').load(function() { // chain is the last one called
-					self.toolbarManager.setup(); // attaches event handlers to DOM nodes
+					// self.toolbarManager.setup(); // attaches event handlers to DOM nodes
 				});
 			} else {
 				q(window).load(function() {
-					self.toolbarManager.setup();
+					// self.toolbarManager.setup();
 				});
 			}
 			this.dialogManager = new uis.gui.DialogManager(this);
 		}
+
 		if(uis.gui.desktop.TextInput){
 			this.textInput = new uis.gui.desktop.TextInput(this, this.id+'_textInput');
 		}
+
 		if (id) {
 			this.create(id, width, height);
 		}

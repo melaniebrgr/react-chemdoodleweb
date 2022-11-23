@@ -12,6 +12,15 @@ Essentially, React may repeatedly re-render a component containing a CWC during 
 
 Adding logic directly in CWC to check if tooldbar exists before writing a new one is effective for preventing UI duplication. However, I can still see the a click event called twice.
 
+```
+let oldWrite = ChemDoodle.uis.gui.ToolbarManager.prototype.write;
+	ChemDoodle.uis.gui.ToolbarManager.prototype.write = function(){
+		if(!alreadyExists){
+			oldWrite();
+		}
+	};
+```
+
 ## 2. overwriting the current ToolBar GUI with one in react
 Exploring the second approach, overwriting the Toolbar manager and implementing the UI in React appears to be working. A benefit of this is approach, beyond reducing a dependency on jQuery, is that it also lends itself to the possibility of exporting both the UI and the "plain" callbacks from the package for those who want full UI control.
 

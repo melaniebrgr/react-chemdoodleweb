@@ -1,5 +1,5 @@
 
-# [RFC] Enable Widgets in Product
+# [ADR] Enable Widgets in Product
 Summary: Allow community to build widgets to expand the use cases of product. 
 
 - **Created:** Aug 7, 2022 -->

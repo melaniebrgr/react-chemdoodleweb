@@ -1,5 +1,5 @@
 
-# [RFC] ChemDoodle React Components API design
+# [ADR] ChemDoodle React Components API design
 Summary: Enable developers to build cheminformatic and scientific UIs in React applications with the ChemDoodle Web Components (CWC) JS library.
 
 - **Created:** Aug 7, 2022

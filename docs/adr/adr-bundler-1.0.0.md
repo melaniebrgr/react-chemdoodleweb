@@ -1,5 +1,5 @@
 
-# [RFC] ChemDoodle React Components Bundler
+# [ADR] ChemDoodle React Components Bundler
 Summary: Evaluates module bundlers
 
 - **Created:** Aug 21, 2022

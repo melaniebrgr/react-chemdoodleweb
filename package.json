@@ -5,9 +5,10 @@
   "source": "src/index.js",
   "main": "dist/index.js",
   "scripts": {
-    "watch": "parcel watch",
     "build": "parcel build",
-    "clean": "rm -rf node_modules/ && rm -rf dist/"
+    "clean": "rm -rf node_modules/ && rm -rf dist/",
+    "lint": "eslint src/",
+    "watch": "parcel watch"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,10 @@
   },
   "type": "module",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.44.0",
+    "@typescript-eslint/parser": "5.44.0",
+    "eslint": "8.28.0",
+    "eslint-plugin-react": "7.31.11",
     "parcel": "2.7.0",
     "typescript": "4.7.4"
   },

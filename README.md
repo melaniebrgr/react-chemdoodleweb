@@ -1,6 +1,6 @@
 # React Chemdoodle Web Components
 
-A React UI library add-on for ChemDoodle Web components, scientific interface display.
+A React UI library add-on for ChemDoodle Web components, a scientific interface display library.
 
 ## ChemDoodle Web Components Installation
 

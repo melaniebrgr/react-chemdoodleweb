@@ -1,7 +1,7 @@
 {
   "name": "react-chemdoodleweb",
   "version": "1.0.0",
-  "description": "A React UI library add-on for ChemDoodle Web components, scientific interface display.",
+  "description": "A React UI library add-on for ChemDoodle Web components, a scientific interface display library.",
   "source": "src/index.js",
   "main": "dist/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "chemdoodle"
   ],
   "author": "Melanie Burger",
-  "license": "AGPL-3.0",
+  "license": "GPL-3.0-only",
   "bugs": {
     "url": "https://github.com/melaniebrgr/react-chemdoodleweb/issues"
   },

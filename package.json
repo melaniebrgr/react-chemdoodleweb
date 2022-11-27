@@ -7,7 +7,7 @@
   "scripts": {
     "build": "parcel build",
     "clean": "rm -rf node_modules/ && rm -rf dist/",
-    "lint": "eslint src/",
+    "lint": "eslint .",
     "watch": "parcel watch"
   },
   "repository": {
@@ -37,7 +37,7 @@
     "@typescript-eslint/eslint-plugin": "5.44.0",
     "@typescript-eslint/parser": "5.44.0",
     "eslint": "8.28.0",
-    "eslint-plugin-react": "7.31.11",
+    "eslint-config-react-app": "7.0.1",
     "parcel": "2.7.0",
     "typescript": "4.7.4"
   },

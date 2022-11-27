@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import { useEffect } from "react"
 
 export function ViewerCanvas({ id, data, style, width = 100, height = 100, canvasStyle, moleculeStyle }) {
@@ -17,7 +19,7 @@ export function ViewerCanvas({ id, data, style, width = 100, height = 100, canva
     
     // Load molecule in canvas
     viewerCanvas.loadMolecule(molecule);
-  }, [data, canvasStyle, moleculeStyle]);
+  }, [canvasStyle, data, id, moleculeStyle]);
 
   return (<canvas id={id} style={style} width={width} height={height} />)
 }

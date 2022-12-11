@@ -8,7 +8,7 @@ function App() {
         <ViewerExample />
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

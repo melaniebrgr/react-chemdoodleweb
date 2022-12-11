@@ -1,6 +1,6 @@
-
 # [ADR] Enable Widgets in Product
-Summary: Allow community to build widgets to expand the use cases of product. 
+
+Summary: Allow community to build widgets to expand the use cases of product.
 
 - **Created:** Aug 7, 2022 -->
 - Current Version: 1.0.4
@@ -9,6 +9,7 @@ Summary: Allow community to build widgets to expand the use cases of product.
 - **Status**: WIP <!-- | In-Review | Approved | Obsolete -->
 
 Owner: person@email.com,
+
 <!-- Contributors: email@hashicorp.com, -->
 <!--Other stakeholders: email@hashicorp.com, -->
 <!-- Approvers: person@hashicorp.com -->
@@ -19,7 +20,7 @@ Owner: person@email.com,
 
 # Background
 
-<!-- The next section is the "Background" section. This section should be at least two paragraphs and can take up to a whole page in some cases. The guiding goal of the background section is: as a newcomer to this project (new employee, team transfer), can I read the background section and follow any links to get the full context of why this change is necessary? 
+<!-- The next section is the "Background" section. This section should be at least two paragraphs and can take up to a whole page in some cases. The guiding goal of the background section is: as a newcomer to this project (new employee, team transfer), can I read the background section and follow any links to get the full context of why this change is necessary?
 
 If you can't show a random engineer the background section and have them acquire nearly full context on the necessity for the RFC, then the background section is not full enough. To help achieve this, link to prior RFCs, discussions, and more here as necessary to provide context so you don't have to simply repeat yourself. -->
 
@@ -41,7 +42,7 @@ Sections often are split further into sub-sections styled "Heading 3". These sub
 
 <!-- ### [Example] Implementation -->
 
-<!-- Many RFCs have an "implementation" section which details how the implementation will work. This section should explain the rough API changes (internal and external), package changes, etc. The goal is to give an idea to reviews about the subsystems that require change and the surface area of those changes. 
+<!-- Many RFCs have an "implementation" section which details how the implementation will work. This section should explain the rough API changes (internal and external), package changes, etc. The goal is to give an idea to reviews about the subsystems that require change and the surface area of those changes.
 
 This knowledge can result in recommendations for alternate approaches that perhaps are idiomatic to the project or result in less packages touched. Or, it may result in the realization that the proposed solution in this RFC is too complex given the problem.
 
@@ -49,7 +50,7 @@ For the RFC author, typing out the implementation in a high-level often serves a
 
 <!-- ### [Example] UX -->
 
-<!-- If there are user-impacting changes by this RFC, it is important to have a "UI/UX" section. User-impacting changes include external API changes, configuration format changes, CLI output changes, etc. 
+<!-- If there are user-impacting changes by this RFC, it is important to have a "UI/UX" section. User-impacting changes include external API changes, configuration format changes, CLI output changes, etc.
 
 This section is effectively the "implementation" section for the user experience. The goal is to explain the changes necessary, any impacts to backwards compatibility, any impacts to normal workflow, etc.
 
@@ -65,9 +66,9 @@ All RFCs should follow similar styling and structure to ease reading. "Beautiful
 
 Heading Styles
 
-"Heading 2" should be used for section titles. We do not use "Heading 1" because aesthetically the text is too large. Google Docs will use Heading 2 as the outermost headers in the generated outline. 
+"Heading 2" should be used for section titles. We do not use "Heading 1" because aesthetically the text is too large. Google Docs will use Heading 2 as the outermost headers in the generated outline.
 
-"Heading 3" should be used for sub-sections. 
+"Heading 3" should be used for sub-sections.
 
 Further heading styles can be used for nested sections, however it is rare that a RFC goes beyond "Heading 4," and rare itself that "Heading 4" is reached.
 
@@ -91,5 +92,5 @@ CLI output samples are similar to code samples but should be highlighted with th
 
     func example() {
       <-make(chan struct{})
-    } 
+    }
 -->

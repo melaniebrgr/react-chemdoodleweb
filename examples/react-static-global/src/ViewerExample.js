@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ViewerCanvas } from "react-chemdoodleweb";
 import molUrl from "./molecules/benzoic-acid.mol";
 
@@ -17,9 +17,11 @@ const moleculeStyle = {
 function ViewerExample() {
   const [mol, setMol] = useState()
 
-  fetch(molUrl)
-    .then(data => data.text())
-    .then(setMol)
+  useEffect(() => {
+    fetch(molUrl)
+      .then(data => data.text())
+      .then(setMol)
+  }, [])
 
   return (<ViewerCanvas id="viewer-canvas" data={{ mol }} canvasStyle={canvasStyle} moleculeStyle={moleculeStyle} />)
 }

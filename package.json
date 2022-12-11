@@ -8,7 +8,7 @@
     "build": "parcel build",
     "clean": "rm -rf dist/",
     "format": "eslint --fix . && prettier --write .",
-    "watch": "parcel watch"
+    "start": "parcel watch"
   },
   "repository": {
     "type": "git",

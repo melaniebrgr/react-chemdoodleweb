@@ -1,5 +1,5 @@
 {
-  "name": "basic-react",
+  "name": "react-dynamic-local",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,5 +30,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "eslintConfig": {
+    "extends": "../../.eslintrc.json"
   }
 }

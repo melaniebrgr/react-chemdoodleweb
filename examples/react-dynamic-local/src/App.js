@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <header>
-        <h1>React Example</h1>
+        <h1>React "dynamic local" example</h1>
       </header>
     </div>
   )

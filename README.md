@@ -82,9 +82,3 @@ useEffect(() => {
 #### Disadvantages
 
 - The browser has to parse and execute the React bundle to discover and download the ChemDoodle script. This means the ChemDoodle script is likely hidden from the preload scanners that are used by browsers to discover resources on pages.
-
-## Frequently encountered errors
-
-> You might have mismatching versions of React and the renderer
-
-In this project this happens because the library and example app are running [two different versions of react](https://reactjs.org/warnings/invalid-hook-call-warning.html#mismatching-versions-of-react-and-react-dom). Check if this is the case with `npm ls react`. Linking the library version to the app version resolves the issue. From the root folder run `npm link examples/react-static-global/node_modules/react`.

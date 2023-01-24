@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import ViewerCanvasExample from './ViewerCanvasExample'
+import SketcherCanvasExample from './SketcherCanvasExample'
 
 function App() {
   useEffect(() => {
@@ -17,8 +19,14 @@ function App() {
   return (
     <div>
       <header>
-        <h1>React "dynamic local" example</h1>
+        <h1>React ChemDoodle "dynamic local" Examples</h1>
       </header>
+      <main>
+        <h2>Viewer Canvas Example</h2>
+        <ViewerCanvasExample />
+        <h2>Sketcher Canvas Example</h2>
+        <SketcherCanvasExample />
+      </main>
     </div>
   )
 }

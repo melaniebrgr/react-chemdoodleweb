@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <header>
-        <h1>React ChemDoodle Examples</h1>
+        <h1>React ChemDoodle "static global" Examples</h1>
       </header>
       <main>
         <h2>Viewer Canvas Example</h2>

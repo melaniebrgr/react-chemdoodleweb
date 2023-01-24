@@ -1,10 +1,9 @@
 {
   "conventionalCommits.scopes": [
     "docs",
+    "examples",
     "react-chemdoodleweb",
     "react-chemdoodleweb:viewer",
     "react-chemdoodleweb:sketcher",
-    "react-dynamic-local",
-    "react-static-local",
   ]
 }

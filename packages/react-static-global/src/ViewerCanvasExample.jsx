@@ -14,7 +14,7 @@ const moleculeStyle = {
   scaleToAverageBondLength: 14.4
 }
 
-function ViewerExample() {
+function ViewerCanvasExample() {
   const [mol, setMol] = useState()
 
   useEffect(() => {
@@ -33,4 +33,4 @@ function ViewerExample() {
   )
 }
 
-export default ViewerExample
+export default ViewerCanvasExample

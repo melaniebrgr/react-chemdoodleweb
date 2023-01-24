@@ -1,11 +1,11 @@
-import ViewerExample from './ViewerExample'
+import ViewerCanvasExample from './ViewerCanvasExample'
 
 function App() {
   return (
     <div>
       <header>
         <h1>React "static global" example</h1>
-        <ViewerExample />
+        <ViewerCanvasExample />
       </header>
     </div>
   )

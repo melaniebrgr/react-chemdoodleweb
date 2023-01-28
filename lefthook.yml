@@ -1,0 +1,4 @@
+pre-commit:
+  commands:
+    format:
+      run: npx eslint --fix . && npx prettier --write {staged_files}

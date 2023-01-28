@@ -22,7 +22,7 @@ export function ViewerCanvas({
     // Setup molecule
     const molecule = ChemDoodle.readMOL(data.mol)
     for (const key in moleculeStyle) {
-      molecule[key](moleculeStyle[key])
+      molecule[key](moleculeStyle[key]);
     }
 
     // Load molecule in canvas

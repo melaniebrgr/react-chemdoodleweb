@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-
+import '../patches/ChemDoodleWeb-9.4.0-patch'
 import { useEffect, useRef, memo } from 'react'
 
 export const SketcherCanvas = memo(

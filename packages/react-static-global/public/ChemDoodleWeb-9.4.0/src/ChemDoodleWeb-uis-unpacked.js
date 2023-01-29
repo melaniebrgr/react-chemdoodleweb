@@ -21653,7 +21653,7 @@
 		};
 		let _ = gui.ToolbarManager.prototype;
 		_.write = function() {
-			let sb = ['<div id="' + this.sketcher.id + '_toolbar" style="font-size:10px;">'];
+			let sb = ['<div style="font-size:10px;">'];
 			let bg = this.sketcher.id + '_main_group';
 			if (this.sketcher.oneMolecule) {
 				sb.push(this.buttonMove.getSource(bg));
@@ -22711,8 +22711,7 @@
 			// canvas
 			this.id = id;
 			this.toolbarManager = new uis.gui.ToolbarManager(this);
-			const hasToolbar = !!document.getElementById(this.id + '_toolbar');
-			if (this.includeToolbar && !hasToolbar) {
+			if (this.includeToolbar) {
 				this.toolbarManager.write();
 				// If pre-created, wait until the last button image loads before
 				// calling setup.

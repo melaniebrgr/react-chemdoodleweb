@@ -1,6 +1,0 @@
-{
-  "name": "chemdoodleweb",
-  "version": "9.4.0",
-  "description": "ChemDoodle Web Components",
-  "main": "./install/ChemDoodleWeb.js"
-}

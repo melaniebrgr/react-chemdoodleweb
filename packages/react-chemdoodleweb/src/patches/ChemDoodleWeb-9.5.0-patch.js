@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 /*
- * ChemDoodleWeb-9.4.0 uses jQuery to create the SketcherCanvas Toolbar.
+ * ChemDoodleWeb-9.5.0 uses jQuery to create the SketcherCanvas Toolbar.
  * Since its lifecycle is not managed by React, toolbar rendering is
  * out-of-sync with react SketcherCanvas renders and caused errors.
  *

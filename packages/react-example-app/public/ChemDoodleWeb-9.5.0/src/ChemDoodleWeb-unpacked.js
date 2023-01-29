@@ -1,9 +1,9 @@
 //
-// ChemDoodle Web Components 9.4.0
+// ChemDoodle Web Components 9.5.0
 //
 // https://web.chemdoodle.com
 //
-// Copyright 2009-2022 iChemLabs, LLC.  All rights reserved.
+// Copyright 2009-2023 iChemLabs, LLC.  All rights reserved.
 //
 // The ChemDoodle Web Components library is licensed under version 3
 // of the GNU GENERAL PUBLIC LICENSE.
@@ -34,11 +34,11 @@ let ChemDoodle = (function() {
 	c.io = {};
 	c.lib = {};
 	c.notations = {};
-	c.structures = {};
+	c.structures = {PID:0};
 	c.structures.d2 = {};
 	c.structures.d3 = {};
 
-	let VERSION = '9.4.0';
+	let VERSION = '9.5.0';
 
 	c.getVersion = function() {
 		return VERSION;
@@ -15746,6 +15746,7 @@ ChemDoodle.RESIDUE = (function(undefined) {
 		this.z = z ? z : 0;
 		// objects cannot be placed directly on the prototype
 		this.enhancedStereo = {type:structures.Atom.ESTEREO_ABSOLUTE, group:1};
+		this.pid = structures.PID++;
 	};
 	structures.Atom.ESTEREO_ABSOLUTE = 'abs';
 	structures.Atom.ESTEREO_OR = 'or';
@@ -16276,11 +16277,22 @@ ChemDoodle.RESIDUE = (function(undefined) {
 
 (function(ELEMENT, extensions, structures, math, m, m4, v3, undefined) {
 	'use strict';
+
+	// this code is a workaround for a stroke caching bug in Safari	
+	if(navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") === -1){
+		CanvasRenderingContext2D.prototype.oldStroke = CanvasRenderingContext2D.prototype.stroke;
+		CanvasRenderingContext2D.prototype.stroke = function(){
+			this.lineWidth+=m.random()*.01;
+			this.oldStroke();
+		}
+	}
+	
 	structures.Bond = function(a1, a2, bondOrder) {
 		this.a1 = a1;
 		this.a2 = a2;
 		// bondOrder can be 0, so need to check against undefined
 		this.bondOrder = bondOrder !== undefined ? bondOrder : 1;
+		this.pid = structures.PID++;
 	};
 	structures.Bond.STEREO_NONE = 'none';
 	structures.Bond.STEREO_PROTRUDING = 'protruding';
@@ -16383,7 +16395,6 @@ ChemDoodle.RESIDUE = (function(undefined) {
 			ctx.beginPath();
 			ctx.moveTo(xs, ys);
 			ctx.lineTo(xf, yf);
-			ctx.closePath();
 			ctx.stroke();
 		}
 		ctx.strokeStyle = this.error?styles.colorError:styles.bonds_color;
@@ -26103,15 +26114,49 @@ ChemDoodle.RESIDUE = (function(undefined) {
 	_.contentTo = function(mols, shapes) {
 		if(!mols){mols = [];}
 		if(!shapes){shapes = [];}
-		let count1 = 0, count2 = 0;
+		let usePIDs = true;
 		for ( let i = 0, ii = mols.length; i < ii; i++) {
 			let mol = mols[i];
 			for ( let j = 0, jj = mol.atoms.length; j < jj; j++) {
-				mol.atoms[j].tmpid = 'a' + count1++;
+				if(mol.atoms[j].pid===undefined){
+					usePIDs = false;
+					break;
+				}
+			}
+			if(usePIDs){
+				for ( let j = 0, jj = mol.bonds.length; j < jj; j++) {
+					if(mol.bonds[j].pid===undefined){
+						usePIDs = false;
+						break;
+					}
+				}
+			}
+		}
+		let count1 = 0, count2 = 0, count3 = 0;
+		for ( let i = 0, ii = mols.length; i < ii; i++) {
+			let mol = mols[i];
+			let mpid = undefined;
+			for ( let j = 0, jj = mol.atoms.length; j < jj; j++) {
+				let aj = mol.atoms[j];
+				if(usePIDs){
+					aj.tmpid = 'a' + aj.pid;
+					if(mpid===undefined || mpid>aj.pid){
+						// pick the lowest atom pid for the molecule
+						mpid = aj.pid;
+					}
+				}else{
+					aj.tmpid = 'a' + count1++;
+				}
 			}
 			for ( let j = 0, jj = mol.bonds.length; j < jj; j++) {
-				mol.bonds[j].tmpid = 'b' + count2++;
+				let bj = mol.bonds[j];
+				if(usePIDs){
+					bj.tmpid = 'b' + bj.pid;
+				}else{
+					bj.tmpid = 'b' + count2++;
+				}
 			}
+			mol.tmpid = 'm' + (mpid===undefined?count3++:mpid);
 		}
 		count1 = 0;
 		for ( let i = 0, ii = shapes.length; i < ii; i++) {
@@ -26138,6 +26183,7 @@ ChemDoodle.RESIDUE = (function(undefined) {
 			for ( let j = 0, jj = mol.bonds.length; j < jj; j++) {
 				mol.bonds[j].tmpid = undefined;
 			}
+			mol.tmpid = undefined;
 		}
 		for ( let i = 0, ii = shapes.length; i < ii; i++) {
 			shapes[i].tmpid = undefined;
@@ -26202,6 +26248,9 @@ ChemDoodle.RESIDUE = (function(undefined) {
 		let dummy = {
 			a : []
 		};
+		if (mol.tmpid) {
+			dummy.i = mol.tmpid;
+		}
 		for ( let i = 0, ii = mol.atoms.length; i < ii; i++) {
 			let a = mol.atoms[i];
 			let da = {
@@ -28259,6 +28308,7 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
 			this.create(id, width, height);
 		}
 	};
+	c._Canvas3D.PRESERVE_DRAWING_BUFFER = false;
 	let _ = c._Canvas3D.prototype = new c._Canvas();
 	let _super = c._Canvas.prototype;
 	_.rotationMatrix = undefined;
@@ -28846,7 +28896,7 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
 		// setup gl object
 		try {
 			let canvas = document.getElementById(this.id);
-			this.gl = canvas.getContext('webgl');
+			this.gl = canvas.getContext('webgl', {preserveDrawingBuffer: c._Canvas3D.PRESERVE_DRAWING_BUFFER});
 			if (!this.gl) {
 				this.gl = canvas.getContext('experimental-webgl');
 			}
@@ -29639,11 +29689,14 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
 
 })(ChemDoodle, ChemDoodle.extensions, ChemDoodle.math, document);
 
-(function(io, document, window, undefined) {
+(function(c, io, document, window, undefined) {
 	'use strict';
 	io.png = {};
 
 	io.png.string = function(canvas) {
+		if(canvas instanceof c._Canvas3D && !canvas.gl.getContextAttributes().preserveDrawingBuffer){
+			throw Error('PNG data cannot be created from a Canvas3D component unless the ChemDoodle._Canvas3D.PRESERVE_DRAWING_BUFFER boolean is set to true before the Canvas3D component is initialized.');
+		}
 		// this will not work for WebGL canvases in some browsers
 		// to fix that you need to set the "preserveDrawingBuffer" to true when
 		// creating the WebGL context
@@ -29652,11 +29705,24 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
 		return document.getElementById(canvas.id).toDataURL('image/png');
 	};
 
-	io.png.open = function(canvas) {
-		window.open(this.string(canvas));
+	io.png.download = function(canvas, name) {
+		if(name===undefined){
+			 name = 'unnamed';
+		}
+		let a = document.createElement("a");
+		a.href = this.string(canvas);
+		a.download = name;
+		a.click();
 	};
 
-})(ChemDoodle.io, document, window);
+	io.png.open = function(canvas) {
+		let w = window.open();
+		w.document.open();
+	    w.document.write('<iframe src="' + this.string(canvas)  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+	    w.document.close();
+	};
+
+})(ChemDoodle, ChemDoodle.io, document, window);
 
 (function(io, q, undefined) {
 	'use strict';
@@ -29804,6 +29870,14 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
 	    }, errorback);
 	};
 	
+	iChemLabs.elementalAnalysis = function(mol, options, callback, errorback) {
+        this._contactServer('elementalAnalysis', {
+            'mol' : new ChemDoodle.io.JSONInterpreter().molTo(mol)
+        }, options, function(content) {
+            callback(content);
+        }, errorback);
+    };
+	
 	iChemLabs.fileToImage = function(formData, options, callback, errorback) {
 	   	this._contactServer('fileToImage', formData, options, function(content) {
 	        callback(content.imgsrc, content.width, content.height);
@@ -29822,7 +29896,7 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
 		this._contactServer('generateIUPACName', {
 			'mol' : JSON_INTERPRETER.molTo(mol)
 		}, options, function(content) {
-			callback(content.iupac);
+			callback(content.iupac, content.attemptedPIN);
 		}, errorback);
 	};
 
@@ -29998,7 +30072,7 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
 		this._contactServer('readSMILES', {
 			'smiles' : smiles
 		}, options, function(content) {
-			callback(JSON_INTERPRETER.molFrom(content.mol));
+			callback(JSON_INTERPRETER.contentFrom(content.content));
 		}, errorback);
 	};
 
@@ -30068,9 +30142,9 @@ ChemDoodle.monitor = (function(featureDetection, q, document, undefined) {
         }, errorback);
 	};
 
-	iChemLabs.writeSMILES = function(mol, options, callback, errorback) {
+	iChemLabs.writeSMILES = function(mols, shapes, options, callback, errorback) {
 		this._contactServer('writeSMILES', {
-			'mol' : JSON_INTERPRETER.molTo(mol)
+			'content' : JSON_INTERPRETER.contentTo(mols, shapes)
 		}, options, function(content) {
 			callback(content.smiles);
 		}, errorback);

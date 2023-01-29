@@ -10,7 +10,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "ignorePatterns": [
-    "**/ChemDoodleWeb-9.4.0/**",
+    "**/ChemDoodleWeb-?.?.?/**",
     "**/dist/**",
     "**/node_modules/**"
   ],

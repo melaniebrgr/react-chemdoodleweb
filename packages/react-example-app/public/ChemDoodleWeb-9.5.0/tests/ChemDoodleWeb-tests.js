@@ -1,9 +1,9 @@
 //
-// ChemDoodle Web Components 9.4.0
+// ChemDoodle Web Components 9.5.0
 //
 // https://web.chemdoodle.com
 //
-// Copyright 2009-2022 iChemLabs, LLC.  All rights reserved.
+// Copyright 2009-2023 iChemLabs, LLC.  All rights reserved.
 //
 // The ChemDoodle Web Components library is licensed under version 3
 // of the GNU GENERAL PUBLIC LICENSE.
@@ -1938,6 +1938,151 @@ test('Check write undefined molecules array', function() {
 	let content = ChemDoodle.writeJSON(undefined, [shape1]);
 	ok(content.length>20, 'Content written');
 });
+
+
+test('Check write persistent IDs', function() {
+	expect(137);
+	// aspirin
+	let aspirinJSON = {"a":[{"x":84.67249609375,"y":97.50000000000001,"i":"a0","l":"O"},{"x":67.35249609375,"y":107.50000000000001,"i":"a1"},{"x":101.99449609375,"y":107.50000000000001,"i":"a2"},{"x":67.35249609375,"y":127.50000000000001,"i":"a3","l":"O"},{"x":50.03249609375,"y":97.50000000000001,"i":"a4"},{"x":101.99449609375,"y":127.50000000000001,"i":"a5"},{"x":119.31449609375,"y":97.50000000000001,"i":"a6"},{"x":119.31449609375,"y":137.5,"i":"a7"},{"x":119.31449609375,"y":77.50000000000001,"i":"a8"},{"x":136.63449609375,"y":107.50000000000001,"i":"a9"},{"x":136.63449609375,"y":127.50000000000001,"i":"a10"},{"x":136.63449609375,"y":67.50000000000001,"i":"a11","l":"O"},{"x":101.99449609375,"y":67.50000000000001,"i":"a12","l":"O"}],"b":[{"b":0,"e":2,"i":"b0"},{"b":0,"e":1,"i":"b1"},{"b":11,"e":8,"i":"b2"},{"b":12,"e":8,"i":"b3","o":2},{"b":3,"e":1,"i":"b4","o":2},{"b":2,"e":6,"i":"b5"},{"b":2,"e":5,"i":"b6","o":2},{"b":6,"e":9,"i":"b7","o":2},{"b":6,"e":8,"i":"b8"},{"b":5,"e":7,"i":"b9"},{"b":9,"e":10,"i":"b10"},{"b":7,"e":10,"i":"b11","o":2},{"b":1,"e":4,"i":"b12"}]};
+	let json = new ChemDoodle.io.JSONInterpreter();
+	let aspirin = json.molFrom(aspirinJSON);
+	let content = json.contentTo([aspirin], []);
+	ok(content, 'Content written');
+	let hash = {};
+	let mout = content.m[0];
+	ok(mout.i, 'Molecule has an id');
+	if(hash[mout.i]){
+		ok(false, 'Molecule ID duplicated');
+		hash[mout.i] = mout;
+	}
+	equal('m', mout.i.charAt(0), 'Molecule id starts with m');
+	let moutid = mout.i;
+	for(let i = 0, ii=mout.a.length; i<ii; i++){
+		let a = mout.a[i];
+		ok(a.i, 'Atom has an id');
+		if(hash[a.i]){
+			ok(false, 'Atom ID duplicated');
+			hash[a.i] = a;
+		}
+		equal('a', a.i.charAt(0), 'Atom id starts with a');
+	}
+	for(let i = 0, ii=mout.b.length; i<ii; i++){
+		let b = mout.b[i];
+		ok(b.i, 'Bond has an id');
+		if(hash[b.i]){
+			ok(false, 'Bond ID duplicated');
+			hash[b.i] = b;
+		}
+		equal('b', b.i.charAt(0), 'Bond id starts with b');
+	}
+	
+	// hack it so object pids are output to the JSON
+	for(let i = 0, ii=aspirin.atoms.length; i<ii; i++){
+		aspirin.atoms[i].label = 'a'+aspirin.atoms[i].pid;
+	}
+	for(let i = 0, ii=aspirin.bonds.length; i<ii; i++){
+		aspirin.bonds[i].stereo = 'b'+aspirin.bonds[i].pid;
+	}
+	
+	// randomize
+	function shuffle(array) {
+	  let currentIndex = array.length,  randomIndex;
+	
+	  // While there remain elements to shuffle.
+	  while (currentIndex != 0) {
+	
+	    // Pick a remaining element.
+	    randomIndex = Math.floor(Math.random() * currentIndex);
+	    currentIndex--;
+	
+	    // And swap it with the current element.
+	    [array[currentIndex], array[randomIndex]] = [
+	      array[randomIndex], array[currentIndex]];
+	  }
+	
+	  return array;
+	}
+	
+	shuffle(aspirin.atoms);
+	shuffle(aspirin.bonds);
+	
+	content = json.contentTo([aspirin], []);
+	ok(content, 'Content written');
+	mout = content.m[0];
+	ok(mout.i, 'Molecule has an id');
+	if(hash[mout.i]){
+		ok(false, 'Molecule ID duplicated');
+		hash[mout.i] = mout;
+	}
+	equal('m', mout.i.charAt(0), 'Molecule id starts with m');
+	equal(moutid, mout.i, 'Molecule has same persistent ID');
+	for(let i = 0, ii=mout.a.length; i<ii; i++){
+		let a = mout.a[i];
+		ok(a.i, 'Atom has an id');
+		if(hash[a.i]){
+			ok(false, 'Atom ID duplicated');
+			hash[a.i] = a;
+		}
+		equal('a', a.i.charAt(0), 'Atom id starts with a');
+		// no change in pid
+		equal(a.l, a.i);
+	}
+	for(let i = 0, ii=mout.b.length; i<ii; i++){
+		let b = mout.b[i];
+		ok(b.i, 'Bond has an id');
+		if(hash[b.i]){
+			ok(false, 'Bond ID duplicated');
+			hash[b.i] = b;
+		}
+		equal('b', b.i.charAt(0), 'Bond id starts with b');
+		// no change in pid
+		equal(b.s, b.i);
+	}
+	
+});
+
+test('Check write persistent IDs when molecules joined', function() {
+	expect(5);
+	let m1 = {"a":[{"x":139,"y":178.84375,"i":"a0"},{"x":156.32050807568876,"y":168.84375,"i":"a1","l":"O"}],"b":[{"b":0,"e":1,"i":"b0"}]};
+	let m2 = {"a":[{"x":139,"y":178.84375,"i":"a0"},{"x":156.32050807568876,"y":168.84375,"i":"a1","l":"N"}],"b":[{"b":0,"e":1,"i":"b0"}]};
+	let json = new ChemDoodle.io.JSONInterpreter();
+	let m1in = json.molFrom(m1);
+	let m2in = json.molFrom(m2);
+	let content = json.contentTo([m1in, m2in], []);
+	ok(content, 'Content written');
+	let m1pid = content.m[0].i;
+	let m2pid = content.m[1].i;
+	ok(m1pid!==m2pid, 'Persistent IDs of both molecules are different');
+	let merged = new ChemDoodle.structures.Molecule();
+	merged.atoms = m1in.atoms.concat(m2in.atoms);
+	merged.bonds = m1in.bonds.concat(m2in.bonds);
+	merged.atoms.push(new ChemDoodle.structures.Bond(m1in.atoms[1], m2in.atoms[1]));
+	content = json.contentTo([merged], []);
+	ok(content, 'Content written');
+	equal(1, content.m.length);
+	ok(content.m[0].i===m1pid || content.m[0].i===m2pid);
+});
+
+test('Check write persistent IDs when molecule separated', function() {
+	expect(4);
+	let butane = {"a":[{"x":139,"y":178.84375,"i":"a0"},{"x":156.32050807568876,"y":168.84375,"i":"a1"},{"x":173.64101615137753,"y":178.84375,"i":"a2"},{"x":190.9615242270663,"y":168.84375,"i":"a3"}],"b":[{"b":0,"e":1,"i":"b0"},{"b":1,"e":2,"i":"b1"},{"b":2,"e":3,"i":"b2"}]};
+	let json = new ChemDoodle.io.JSONInterpreter();
+	let butanein = json.molFrom(butane);
+	let content = json.contentTo([butanein], []);
+	ok(content, 'Content written');
+	let butanepid = content.m[0].i;
+	// remove middle bond
+	butanein.bonds.splice(1, 1);
+	let splitup = new ChemDoodle.informatics.Splitter().split(butanein);
+	content = json.contentTo(splitup, []);
+	ok(content, 'Content written');
+	equal(2, content.m.length);
+	ok(content.m[0].i===butanepid || content.m[1].i===butanepid);
+});
+
+test('Check write persistent IDs when PIDs are deleted on core objects', function() {
+	expect(0);
+});
 module('JCAMPInterpreter');
 
 test('Check JCAMPInterpreter class exists', function() {
@@ -3811,29 +3956,33 @@ test('Check optimize 3D', function() {
 });
 
 test('Check readSMILES', function() {
-	expect(3);
+	expect(5);
 	let result;
 	ChemDoodle.iChemLabs.readSMILES('CCC', {}, function(returned) {
 		result = returned;
 	});
-	ok(result instanceof ChemDoodle.structures.Molecule, 'Check that the returned object is the correct class');
-	equal(3, result.atoms.length, 'Check the number of atoms');
-	equal(2, result.bonds.length, 'Check the number of bonds');
+	equal(1, result.molecules.length);
+	equal(0, result.shapes.length);
+	let m = result.molecules[0];
+	ok(m instanceof ChemDoodle.structures.Molecule, 'Check that the returned object is the correct class');
+	equal(3, m.atoms.length, 'Check the number of atoms');
+	equal(2, m.bonds.length, 'Check the number of bonds');
 });
 
 test('Check readSMILES kekulizes', function() {
 	expect(5);
 	let result;
-	ChemDoodle.iChemLabs.readSMILES('c1ccccc1', {}, function(returned) {
+	ChemDoodle.iChemLabs.readSMILES('c1ccccc1', {'kekulize':true}, function(returned) {
 		result = returned;
 	});
-	ok(result instanceof ChemDoodle.structures.Molecule, 'Check that the returned object is the correct class');
-	equal(6, result.atoms.length, 'Check the number of atoms');
-	equal(6, result.bonds.length, 'Check the number of bonds');
+	let m = result.molecules[0];
+	ok(m instanceof ChemDoodle.structures.Molecule, 'Check that the returned object is the correct class');
+	equal(6, m.atoms.length, 'Check the number of atoms');
+	equal(6, m.bonds.length, 'Check the number of bonds');
 	let singleCount = 0;
 	let doubleCount = 0;
-	for ( let i = 0, ii = result.bonds.length; i < ii; i++) {
-		let bO = result.bonds[i].bondOrder;
+	for ( let i = 0, ii = m.bonds.length; i < ii; i++) {
+		let bO = m.bonds[i].bondOrder;
 		if (bO === 1) {
 			singleCount++;
 		} else if (bO === 2) {
@@ -3851,7 +4000,7 @@ test('Check writeSMILES', function() {
 	mol.atoms[1] = new ChemDoodle.structures.Atom();
 	mol.bonds[0] = new ChemDoodle.structures.Bond(mol.atoms[0], mol.atoms[1]);
 	let result;
-	ChemDoodle.iChemLabs.writeSMILES(mol, {}, function(returned) {
+	ChemDoodle.iChemLabs.writeSMILES([mol], [], {}, function(returned) {
 		result = returned;
 	});
 	equal('CC', result, 'Check SMILES string is correct');
@@ -3935,7 +4084,7 @@ test('Check calculate', function() {
 		result = returned;
 	});
 	equal('CH4', result.mf, 'Check molecular formula');
-	equal(16.0425, result.mw, 'Check molecular mass');
+	equal(16.04252, result.mw, 'Check molecular mass');
 });
 
 test('Check simulate1HNMR', function() {
@@ -3971,7 +4120,7 @@ test('Check simulateMassParentPeak', function() {
 		result = returned;
 	});
 	ok(result instanceof ChemDoodle.structures.Spectrum, 'Check that the returned object is the correct class');
-	equal(2, result.data.length, 'Check the number of points in the plot');
+	equal(3, result.data.length, 'Check the number of points in the plot');
 });
 
 test('Check getOptimizedPDBStructure', function() {
@@ -4296,14 +4445,16 @@ test('Check getZeoliteFromIZA', function() {
 });
 
 test('Check generateIUPACName', function() {
-	expect(1);
+	expect(2);
 	let mol = new ChemDoodle.structures.Molecule();
 	mol.atoms[0] = new ChemDoodle.structures.Atom();
-	let result;
-	ChemDoodle.iChemLabs.generateIUPACName(mol, {}, function(returned) {
-		result = returned;
+	let resultTraditional, resultPIN;
+	ChemDoodle.iChemLabs.generateIUPACName(mol, {}, function(traditional, pin) {
+		resultTraditional = traditional;
+		resultPIN = pin;
 	});
-	equal('Methane', result, 'Check the name is Methane');
+	equal('Methane', resultTraditional, 'Check the traditional name is Methane');
+	equal('methane', resultPIN, 'Check the PIN is methane');
 });
 
 test('Check createLewisDotStructure', function() {
@@ -4484,6 +4635,43 @@ test('Check cir', function() {
 	// not possible to check file upload, so just check the function is defined
 	expect(1);
 	ok(ChemDoodle.iChemLabs.cir, 'Function exists.');
+});
+
+test('Check elementalAnalaysis', function() {
+	expect(8);
+	let mol = new ChemDoodle.structures.Molecule();
+	mol.atoms[0] = new ChemDoodle.structures.Atom();
+	let result;
+	ChemDoodle.iChemLabs.elementalAnalysis(mol, {}, function(content) {
+		result = content;
+	});
+	ok(result, 'Check result is not undefined');
+	ok(!result.error, 'Check there is no error');
+	equal('CH<sub>4</sub>', result.molecular_formula, 'Check the molecular formula');
+	equal('16.04 amu', result.molecular_mass, 'Check the molecular mass');
+	equal('16.03 amu', result.monoisotopic_mass, 'Check the monoisotopic mass');
+	equal('C-74.87; H-25.13', result.composition, 'Check the composition');
+	equal('16.03 (100.000%), 17.03 (1.082%), 17.04 (0.046%)', result.peaks, 'Check the peaks');
+	ok(result.jcamp.length>10, 'Check jcamp exists with content');
+});
+
+test('Check elementalAnalaysis unknown isotope', function() {
+	expect(8);
+	let mol = new ChemDoodle.structures.Molecule();
+	mol.atoms[0] = new ChemDoodle.structures.Atom();
+	mol.atoms[0].mass = 99;
+	let result;
+	ChemDoodle.iChemLabs.elementalAnalysis(mol, {}, function(content) {
+		result = content;
+	});
+	ok(result, 'Check result is not undefined');
+	equal('No data for isotope(s): 99C', result.error, 'Verify error has the correct message');
+	equal('<sup>99</sup>CH<sub>4</sub>', result.molecular_formula, 'Check the molecular formula');
+	equal(undefined, result.molecular_mass, 'Check the molecular mass');
+	equal(undefined, result.monoisotopic_mass, 'Check the monoisotopic mass');
+	equal(undefined, result.composition, 'Check the composition');
+	equal(undefined, result.peaks, 'Check the peaks');
+	equal(undefined, result.jcamp, 'Check the jcamp spectrum is undefined');
 });
 module('Molecule');
 

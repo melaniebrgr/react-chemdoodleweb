@@ -5,4 +5,4 @@ commit-msg:
 pre-commit:
   commands:
     'lint and prettier files':
-      run: npm run format -- {staged_files}
+      run: npm run format {staged_files}

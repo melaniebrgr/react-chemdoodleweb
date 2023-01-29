@@ -1,9 +1,9 @@
 {
   "name": "react-example-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react-chemdoodleweb": "*"
+    "react-chemdoodleweb": "^0.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

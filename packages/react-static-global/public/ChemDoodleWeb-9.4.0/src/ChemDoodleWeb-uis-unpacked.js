@@ -21652,7 +21652,7 @@
 			}
 		};
 		let _ = gui.ToolbarManager.prototype;
-		_.write = function() { // toolbarManager.write creates a string representing the Sketcher toolbar and inserts in the DOM
+		_.write = function() {
 			let sb = ['<div id="' + this.sketcher.id + '_toolbar" style="font-size:10px;">'];
 			let bg = this.sketcher.id + '_main_group';
 			if (this.sketcher.oneMolecule) {
@@ -22710,23 +22710,20 @@
 			// toolbar manager needs the sketcher id to make it unique to this
 			// canvas
 			this.id = id;
-			
+			this.toolbarManager = new uis.gui.ToolbarManager(this);
 			const hasToolbar = !!document.getElementById(this.id + '_toolbar');
-	
-			this.toolbarManager = new uis.gui.ToolbarManager(this); // sketcher instance passed in here
-	
 			if (this.includeToolbar && !hasToolbar) {
-				this.toolbarManager.write(); // creates HTML
+				this.toolbarManager.write();
 				// If pre-created, wait until the last button image loads before
 				// calling setup.
 				let self = this;
 				if (document.getElementById(this.id)) {
-					q('#' + id + '_button_chain_icon').load(function() { // chain is the last one called
-						// self.toolbarManager.setup(); // attaches event handlers to DOM nodes
+					q('#' + id + '_button_chain_icon').load(function() {
+						self.toolbarManager.setup();
 					});
 				} else {
 					q(window).load(function() {
-						// self.toolbarManager.setup();
+						self.toolbarManager.setup();
 					});
 				}
 				this.dialogManager = new uis.gui.DialogManager(this);

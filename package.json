@@ -6,8 +6,7 @@
     "graph": "npx nx graph",
     "format": "eslint --fix . && prettier --write .",
     "start:react-chemdoodleweb": "lerna run start --scope=react-chemdoodleweb",
-    "start:react-static-global": "lerna run start --scope=react-static-global",
-    "start:react-dynamic-local": "lerna run start --scope=react-dynamic-local"
+    "start:react-example-app": "lerna run start --scope=react-example-app"
   },
   "repository": {
     "type": "git",

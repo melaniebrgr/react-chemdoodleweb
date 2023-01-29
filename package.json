@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "description": "A React UI library add-on for ChemDoodle Web components, a scientific interface display library.",
   "scripts": {
-    "graph": "npx nx graph",
     "format": "eslint --fix && prettier --write",
-    "start:react-chemdoodleweb": "lerna run start --scope=react-chemdoodleweb",
-    "start:react-example-app": "lerna run start --scope=react-example-app"
+    "start": "lerna run start --scope=react-chemdoodleweb & lerna run start --scope=react-example-app",
+    "version": "lerna version --conventional-commits"
   },
   "repository": {
     "type": "git",

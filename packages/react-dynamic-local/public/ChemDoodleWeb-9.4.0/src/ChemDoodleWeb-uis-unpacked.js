@@ -14779,6 +14779,7 @@
 		return p;
 	
 	})(ChemDoodle.iChemLabs, ChemDoodle.lib.jQuery);
+	
 	(function(actions, undefined) {
 		'use strict';
 		actions._Action = function() {
@@ -14806,6 +14807,7 @@
 		};
 	
 	})(ChemDoodle.uis.actions);
+	
 	(function(informatics, structures, actions, undefined) {
 		'use strict';
 		actions.AddAction = function(sketcher, a, as, bs) {
@@ -14887,6 +14889,7 @@
 		};
 	
 	})(ChemDoodle.informatics, ChemDoodle.structures, ChemDoodle.uis.actions);
+	
 	(function(actions, undefined) {
 		'use strict';
 		actions.AddContentAction = function(sketcher, mols, shapes) {
@@ -14909,6 +14912,7 @@
 		};
 	
 	})(ChemDoodle.uis.actions);
+	
 	(function(actions, undefined) {
 		'use strict';
 		actions.AddShapeAction = function(sketcher, s) {
@@ -19527,7 +19531,7 @@
 	
 	})(JSON, localStorage);
 	
-	(function(desktop, imageDepot, q, undefined) { // Button constructor
+	(function(desktop, imageDepot, q, undefined) {
 		'use strict';
 		desktop.Button = function(id, icon, tooltip, func) {
 			this.id = id;
@@ -19546,7 +19550,7 @@
 			}
 			return undefined;
 		};
-		_.getSource = function(buttonGroup) { // for toggle button (radio)
+		_.getSource = function(buttonGroup) {
 			let sb = [];
 			let spacingStyles = 'box-sizing:border-box;margin-top:0px; margin-bottom:1px; padding:0px; height:28px; width:28px;';
 			if (this.toggle) {
@@ -19593,9 +19597,9 @@
 		_.setup = function(lone) {
 			let element = this.getElement();
 			if (!this.toggle || lone) {
-				element.button(); // styles the button
+				element.button();
 			}
-			element.click(this.func); // binds callback to the click method. func is whatever is passed into the constructor
+			element.click(this.func);
 		};
 		_.disable = function() {
 			let element = this.getElement();
@@ -21459,8 +21463,6 @@
 		};
 	
 	})(ChemDoodle.uis.gui.desktop, ChemDoodle.uis.gui.imageDepot, ChemDoodle.lib.jQuery, document);
-	
-	// ToolbarManager: reponsible for the GUI toolbar representation
 	(function(c, iChemLabs, io, structures, actions, gui, imageDepot, desktop, tools, states, q, document, undefined) {
 		'use strict';
 		gui.ToolbarManager = function(sketcher) {
@@ -21650,8 +21652,8 @@
 			}
 		};
 		let _ = gui.ToolbarManager.prototype;
-		_.write = function() { // toolbarManager.write creates a string representing the Sketcher toolbar and inserts in the DOM
-			let sb = ['<div id="' + this.sketcher.id + '_toolbar" style="font-size:10px;">'];
+		_.write = function() {
+			let sb = ['<div style="font-size:10px;">'];
 			let bg = this.sketcher.id + '_main_group';
 			if (this.sketcher.oneMolecule) {
 				sb.push(this.buttonMove.getSource(bg));
@@ -21716,7 +21718,7 @@
 				document.write(sb.join(''));
 			}
 		};
-		_.setup = function() { // toolbarManager.setup 
+		_.setup = function() {
 			if (this.sketcher.oneMolecule) {
 				this.buttonMove.setup(true);
 			} else {
@@ -22690,7 +22692,7 @@
 		};
 	
 	})(ChemDoodle.informatics, ChemDoodle.io, ChemDoodle.structures, ChemDoodle.uis, ChemDoodle.uis.actions);
-	// SketcherCanvas, overwrite this method in global
+	
 	(function(c, extensions, featureDetection, uis, structures, d2, tools, q, m, window, undefined) {
 		'use strict';
 		c.SketcherCanvas = function(id, width, height, options) {
@@ -22708,32 +22710,26 @@
 			// toolbar manager needs the sketcher id to make it unique to this
 			// canvas
 			this.id = id;
-			
-			const hasToolbar = !!document.getElementById(this.id + '_toolbar');
-	
-			this.toolbarManager = new uis.gui.ToolbarManager(this); // sketcher instance passed in here
-	
-			if (this.includeToolbar && !hasToolbar) {
-				this.toolbarManager.write(); // creates HTML
+			this.toolbarManager = new uis.gui.ToolbarManager(this);
+			if (this.includeToolbar) {
+				this.toolbarManager.write();
 				// If pre-created, wait until the last button image loads before
 				// calling setup.
 				let self = this;
 				if (document.getElementById(this.id)) {
-					q('#' + id + '_button_chain_icon').load(function() { // chain is the last one called
-						// self.toolbarManager.setup(); // attaches event handlers to DOM nodes
+					q('#' + id + '_button_chain_icon').load(function() {
+						self.toolbarManager.setup();
 					});
 				} else {
 					q(window).load(function() {
-						// self.toolbarManager.setup();
+						self.toolbarManager.setup();
 					});
 				}
 				this.dialogManager = new uis.gui.DialogManager(this);
 			}
-	
 			if(uis.gui.desktop.TextInput){
 				this.textInput = new uis.gui.desktop.TextInput(this, this.id+'_textInput');
 			}
-	
 			if (id) {
 				this.create(id, width, height);
 			}
@@ -23110,7 +23106,6 @@
 		};
 		// desktop events
 		_.click = function(e) {
-			console.log(">>> click", this.stateManager.getCurrentState());
 			this.scaleEvent(e);
 			if(this.modal){
 				// for modal popovers, close requires a true value to state that is was cancelled

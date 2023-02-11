@@ -1,12 +1,12 @@
 {
-  "name": "react-chemdoodleweb",
-  "version": "0.0.0",
-  "description": "A React UI library add-on for ChemDoodle Web components, a scientific interface display library.",
+  "private": true,
   "scripts": {
     "format": "eslint --fix && prettier --write",
     "start": "lerna run start --scope=react-chemdoodleweb & lerna run start --scope=react-example-app",
+    "start:registry": "verdaccio --listen 4873",
     "version": "lerna version --conventional-commits",
-    "publish": "lerna publish --conventional-commits"
+    "publish": "lerna publish --conventional-commits",
+    "publish:test": "lerna exec 'npm publish --registry http://localhost:4873/'"
   },
   "repository": {
     "type": "git",
@@ -44,7 +44,8 @@
     "lerna-changelog": "^2.2.0",
     "parcel": "2.7.0",
     "prettier": "2.8.1",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "verdaccio": "5.20.1"
   },
   "peerDependencies": {
     "@testing-library/jest-dom": "5.16.5",

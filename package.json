@@ -5,7 +5,8 @@
   "scripts": {
     "format": "eslint --fix && prettier --write",
     "start": "lerna run start --scope=react-chemdoodleweb & lerna run start --scope=react-example-app",
-    "version": "lerna version --conventional-commits"
+    "version": "lerna version --conventional-commits",
+    "publish": "lerna publish --conventional-commits"
   },
   "repository": {
     "type": "git",

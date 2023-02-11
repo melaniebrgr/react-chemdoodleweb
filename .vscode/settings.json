@@ -1,9 +1,3 @@
 {
-  "conventionalCommits.scopes": [
-    "docs",
-    "examples",
-    "react-chemdoodleweb",
-    "react-chemdoodleweb:viewer",
-    "react-chemdoodleweb:sketcher"
-  ]
+  "conventionalCommits.scopes": ["docs", "examples", "react-chemdoodleweb"]
 }

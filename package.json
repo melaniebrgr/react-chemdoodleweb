@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "description": "A React UI library add-on for ChemDoodle Web components, a scientific interface display library.",
   "scripts": {
-    "graph": "npx nx graph",
-    "format": "eslint --fix . && prettier --write .",
-    "start:react-chemdoodleweb": "lerna run start --scope=react-chemdoodleweb",
-    "start:react-example-app": "lerna run start --scope=react-example-app"
+    "format": "eslint --fix && prettier --write",
+    "start": "lerna run start --scope=react-chemdoodleweb & lerna run start --scope=react-example-app",
+    "version": "lerna version --conventional-commits"
   },
   "repository": {
     "type": "git",
@@ -32,12 +31,16 @@
   },
   "type": "module",
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@typescript-eslint/eslint-plugin": "5.44.0",
     "@typescript-eslint/parser": "5.44.0",
+    "commitlint": "^17.4.2",
     "eslint": "8.28.0",
     "eslint-config-react-app": "7.0.1",
     "lefthook": "^1.2.8",
     "lerna": "6.4.1",
+    "lerna-changelog": "^2.2.0",
     "parcel": "2.7.0",
     "prettier": "2.8.1",
     "typescript": "4.7.4"

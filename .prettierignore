@@ -1,3 +1,4 @@
-**/ChemDoodleWeb-9.4.0/**
+.prettierignore
+**/ChemDoodleWeb-?.?.?/**
 **/dist/**,
 **/node_modules/**,

@@ -1,3 +1,4 @@
+.prettierignore
 **/ChemDoodleWeb-?.?.?/**
 **/dist/**,
 **/node_modules/**,

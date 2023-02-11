@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "react-chemdoodleweb": "^0.0.1"
+    "react-chemdoodleweb": "*"
   },
   "scripts": {
     "start": "react-scripts start",

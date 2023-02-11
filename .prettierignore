@@ -1,3 +1,4 @@
+.npmrc
 .prettierignore
 **/ChemDoodleWeb-?.?.?/**
 **/dist/**,

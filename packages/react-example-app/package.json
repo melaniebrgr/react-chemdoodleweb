@@ -1,6 +1,7 @@
 {
   "name": "react-example-app",
   "version": "0.0.1",
+  "private": true,
   "dependencies": {
     "react-chemdoodleweb": "^0.0.1"
   },

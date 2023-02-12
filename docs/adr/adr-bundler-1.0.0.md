@@ -1,6 +1,6 @@
 # [ADR] ChemDoodle React Components Bundler
 
-Summary: Evaluates module bundlers
+Summary: Evaluate module bundlers.
 
 - **Created:** Aug 21, 2022
 - **Current Version:** 0.0.0

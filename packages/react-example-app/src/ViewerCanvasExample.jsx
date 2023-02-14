@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ViewerCanvas } from 'react-chemdoodleweb'
+import { ViewerCanvas } from 'react-chemdoodle'
 import molUrl from './molecules/benzoic-acid.mol'
 
 const canvasStyle = {

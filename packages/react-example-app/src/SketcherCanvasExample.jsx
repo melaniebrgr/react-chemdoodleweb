@@ -1,4 +1,4 @@
-import { SketcherCanvas } from 'react-chemdoodleweb'
+import { SketcherCanvas } from 'react-chemdoodle'
 
 const canvasOptions = {
   includeToolbar: true,

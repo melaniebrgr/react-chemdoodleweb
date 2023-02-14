@@ -1,5 +1,5 @@
 {
-  "name": "react-chemdoodleweb",
+  "name": "react-chemdoodle",
   "version": "0.0.2",
   "source": "src/index.js",
   "main": "dist/index.js",

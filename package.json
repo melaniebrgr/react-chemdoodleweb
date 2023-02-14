@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "format": "eslint --fix && prettier --write",
-    "start": "lerna run start --scope=react-chemdoodleweb & lerna run start --scope=react-example-app",
+    "start": "lerna run start --scope=react-chemdoodle & lerna run start --scope=react-example-app",
     "start:registry": "verdaccio --listen 4873",
     "version": "lerna version --conventional-commits",
     "publish": "lerna publish --conventional-commits",

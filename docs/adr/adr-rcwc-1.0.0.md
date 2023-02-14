@@ -17,9 +17,9 @@ The [ChemDoodle Web Component](https://web.chemdoodle.com/) (CWC) library provid
 
 1. expose CWC functionality via a flexible component API that is familiar for React developers,
 2. support TypeScript and JavaScript React applications, and
-3. enable import of the `react-chemdoodleweb` library in isomorphic applications.
+3. enable import of the `react-chemdoodle` library in isomorphic applications.
 
-Additionally, the `react-chemdoodleweb` library will be versioned and distributed via a package manager such as npm or GitHub Packages so it can be installed, upgraded, and tracked in React applications like any other third-party dependency.
+Additionally, the `react-chemdoodle` library will be versioned and distributed via a package manager such as npm or GitHub Packages so it can be installed, upgraded, and tracked in React applications like any other third-party dependency.
 
 ## Background
 
@@ -165,7 +165,7 @@ Here we consider composition and headless-based component APIs, as they can be i
 #### 1.1 Composition
 
 ```jsx
-import ChemDoodle from '@react-chemdoodleweb'
+import ChemDoodle from '@react-chemdoodle'
 
 const Sketcher = () => {
   return (
@@ -184,7 +184,7 @@ The `Controls` sub-component exposes useful information via a render prop to ena
 #### 1.2 Headless
 
 ```jsx
-import { useChemDoodle } from '@react-chemdoodleweb'
+import { useChemDoodle } from '@react-chemdoodle'
 
 const Sketcher = () => {
   const { canvas, controls } = useChemDoodle(options)
@@ -213,7 +213,7 @@ The canvas component returned from a hook can also expose utility methods. This 
 ```jsx
 // Sketcher.jsx
 
-import { useChemDoodle } from '@react-chemdoodleweb'
+import { useChemDoodle } from '@react-chemdoodle'
 
 const Sketcher = () => {
   const canvas = useChemDoodle(options)

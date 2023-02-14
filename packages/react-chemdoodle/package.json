@@ -1,6 +1,6 @@
 {
   "name": "react-chemdoodle",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "source": "src/index.js",
   "main": "dist/index.js",
   "scripts": {

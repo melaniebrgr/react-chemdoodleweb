@@ -73,7 +73,7 @@ The CWC package can be also optionally be listed as a peer dependency for visibi
 
 ```json
 "peerDependencies": {
-    "chemdoodleweb": "file:ChemDoodleWeb-9.4.0"
+    "chemdoodleweb": "file:ChemDoodleWeb-9.5.0"
 },
 ```
 

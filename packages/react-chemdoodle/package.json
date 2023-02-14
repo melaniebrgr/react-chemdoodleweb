@@ -1,6 +1,25 @@
 {
   "name": "react-chemdoodle",
   "version": "0.0.5",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melaniebrgr/react-chemdoodleweb.git"
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "chemistry",
+    "chemical",
+    "graphics",
+    "cheminformatics",
+    "chemdoodle"
+  ],
+  "author": "Melanie Burger",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/melaniebrgr/react-chemdoodleweb/issues"
+  },
+  "homepage": "https://github.com/melaniebrgr/react-chemdoodleweb#readme",
   "source": "src/index.js",
   "main": "dist/index.js",
   "scripts": {

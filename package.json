@@ -8,25 +8,6 @@
     "publish": "lerna exec -- npm publish",
     "publish:test": "lerna exec 'npm publish --registry http://localhost:4873/'"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/melaniebrgr/react-chemdoodleweb.git"
-  },
-  "keywords": [
-    "react",
-    "javascript",
-    "chemistry",
-    "chemical",
-    "graphics",
-    "cheminformatics",
-    "chemdoodle"
-  ],
-  "author": "Melanie Burger",
-  "license": "GPL-3.0-only",
-  "bugs": {
-    "url": "https://github.com/melaniebrgr/react-chemdoodleweb/issues"
-  },
-  "homepage": "https://github.com/melaniebrgr/react-chemdoodleweb#readme",
   "engines": {
     "node": "=18.12.1"
   },

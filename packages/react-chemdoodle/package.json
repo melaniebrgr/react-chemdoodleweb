@@ -15,7 +15,7 @@
     "chemdoodle"
   ],
   "author": "Melanie Burger",
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/melaniebrgr/react-chemdoodleweb/issues"
   },

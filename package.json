@@ -1,12 +1,13 @@
 {
   "private": true,
   "scripts": {
+    "build": "lerna run build",
     "format": "eslint --fix && prettier --write",
+    "publish": "lerna exec -- npm publish",
+    "publish:test": "lerna exec 'npm publish --registry http://localhost:4873/'",
     "start": "lerna run start --scope=react-chemdoodle & lerna run start --scope=react-example-app",
     "start:registry": "verdaccio --listen 4873",
-    "version": "lerna version --conventional-commits",
-    "publish": "lerna exec -- npm publish",
-    "publish:test": "lerna exec 'npm publish --registry http://localhost:4873/'"
+    "version": "lerna version --conventional-commits"
   },
   "engines": {
     "node": "=18.12.1"

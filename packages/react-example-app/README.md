@@ -1,3 +1,3 @@
-# Static, global installation
+# React example app
 
-Demonstrate the react chemdoodle web components usage in React application.
+Demonstrates the react chemdoodle web components (`react-chemdoodle`) usage in a React application.
